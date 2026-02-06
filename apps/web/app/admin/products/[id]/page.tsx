@@ -4,7 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "../../../../lib/api";
 import { useSession } from "../../../../lib/auth";
-import { TopBar, Card, CardBody, Input, Select, Button } from "../../../../components/ui";
+import { TopBar, Card, Input, Select, Button } from "../../../../components/ui";
+import React from "react";
+
+function CardBody({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={className}>{children}</div>;
+}
 
 const categories = ["protein","vitamins","creatine","pre-workout","bars","other"];
 const forms = ["powder","capsules","bar"];
