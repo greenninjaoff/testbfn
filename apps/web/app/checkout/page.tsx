@@ -8,7 +8,7 @@ import { TopBar, Card, Input, Select, Button, NavBar } from "../../components/ui
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export function CardBody({
+function CardBody({
   children,
   className = "",
 }: {
