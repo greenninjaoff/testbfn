@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  CREATED
+  INVOICE_CREATED
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id          String   @id @default(uuid())
+  telegramId  BigInt   @unique
+  username    String?
+  firstName   String?
+  lastName    String?
+  photoUrl    String?
+  role        Role     @default(USER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orders      Order[]
+}
+
+model Product {
+  id           String   @id @default(uuid())
+  slug         String   @unique
+  displayName  String
+  description  String?
+  notes        String?
+
+  category     String
+  type         String
+  series       String?
+  form         String
+  flavor       String?
+
+  netWeightG             Int?
+  servingSizeG           Float?
+  mixWithMlWater         Int?
+  recommendedDailyServings Float?
+  shelfLifeMonths        Int?
+  storage                String?
+
+  brand        String?
+  line         String?
+  subline      String?
+
+  images       String[]  @default([])
+  price        Float
+  currency     String
+  stockQuantity Int
+  isActive     Boolean  @default(true)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orderItems   OrderItem[]
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  status        OrderStatus @default(CREATED)
+
+  customerName  String
+  phone         String
+  deliveryMethod String
+  address       String?
+  notes         String?
+
+  currency      String
+  subtotal      Float
+
+  paymentProvider String?
+  paymentId      String?
+  paymentStatus  String?
+  paymentRaw     Json?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id         String  @id @default(uuid())
+  orderId    String
+  order      Order   @relation(fields: [orderId], references: [id])
+
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+
+  nameSnapshot String
+  priceSnapshot Float
+  currencySnapshot String
+  quantity   Int
+}

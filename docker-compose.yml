@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16
+    container_name: tma_store_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tma_store
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  api:
+    build:
+      context: ./apps/api
+    container_name: tma_store_api
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    command: ["pnpm","start"]
+  web:
+    build:
+      context: ./apps/web
+    container_name: tma_store_web
+    env_file:
+      - ./apps/web/.env
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    command: ["pnpm","start"]
+
+volumes:
+  db_data:
