@@ -4,8 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { api } from "../../lib/api";
 import { useCart } from "../../lib/cart";
-import { TopBar, Card, CardBody, Input, Select, Button, NavBar } from "../../components/ui";
+import { TopBar, Card, Input, Select, Button, NavBar } from "../../components/ui";
 import { useRouter } from "next/navigation";
+import React from "react";
+
+export function CardBody({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={className}>{children}</div>;
+}
+
 
 export default function CheckoutPage() {
   const { items, clear } = useCart();
