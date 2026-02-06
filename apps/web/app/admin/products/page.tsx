@@ -21,14 +21,14 @@ export default function AdminProducts() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["adminProducts"] })
   });
 
-  if (user?.role !== "ADMIN") {
-    return (
-      <div className="p-4">
-        <Link href="/admin" className="underline">Back</Link>
-        <div className="text-red-300 mt-3">Admin only.</div>
-      </div>
-    );
-  }
+  // if (user?.role !== "ADMIN") {
+  //   return (
+  //     <div className="p-4">
+  //       <Link href="/admin" className="underline">Back</Link>
+  //       <div className="text-red-300 mt-3">Admin only.</div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="pb-6">
