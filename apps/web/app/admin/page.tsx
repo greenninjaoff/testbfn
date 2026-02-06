@@ -12,7 +12,7 @@ export default function AdminHome() {
     <div className="pb-20">
       <TopBar title="Admin" right={<Link href="/" className="text-white/70">Store</Link>} />
       <div className="p-4 space-y-3">
-        {loading ? <div className="text-white/60 text-sm">Checking…</div> : null}
+        {/* {loading ? <div className="text-white/60 text-sm">Checking…</div> : null}
         {!isAdmin ? (
           <Card>
             <CardBody>
@@ -22,7 +22,7 @@ export default function AdminHome() {
               </div>
             </CardBody>
           </Card>
-        ) : (
+        ) : ( */}
           <>
             <div className="grid grid-cols-2 gap-3">
               <Link href="/admin/products" className="rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10">
@@ -35,7 +35,7 @@ export default function AdminHome() {
               </Link>
             </div>
           </>
-        )}
+        {/* )} */}
       </div>
       <NavBar />
     </div>
